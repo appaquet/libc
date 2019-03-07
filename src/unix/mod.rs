@@ -337,6 +337,7 @@ cfg_if! {
         extern {}
     } else if #[cfg(any(target_os = "macos",
                         target_os = "ios",
+                        target_os = "watchos",
                         target_os = "android",
                         target_os = "openbsd",
                         target_os = "bitrig"))] {
@@ -816,7 +817,7 @@ extern {
     #[cfg_attr(target_os = "netbsd", link_name = "__getrusage50")]
     pub fn getrusage(resource: ::c_int, usage: *mut rusage) -> ::c_int;
 
-    #[cfg_attr(any(target_os = "macos", target_os = "ios"),
+    #[cfg_attr(any(target_os = "macos", target_os = "ios", target_os = "watchos"),
                link_name = "realpath$DARWIN_EXTSN")]
     pub fn realpath(pathname: *const ::c_char, resolved: *mut ::c_char)
                     -> *mut ::c_char;
@@ -947,7 +948,7 @@ extern {
                    target_os = "dragonfly",
                    target_os = "haiku"),
                link_name = "__res_init")]
-    #[cfg_attr(any(target_os = "macos", target_os = "ios"),
+    #[cfg_attr(any(target_os = "macos", target_os = "ios", target_os = "watchos"),
                link_name = "res_9_init")]
     pub fn res_init() -> ::c_int;
 
@@ -1128,6 +1129,7 @@ cfg_if! {
         pub use self::notbsd::*;
     } else if #[cfg(any(target_os = "macos",
                         target_os = "ios",
+                        target_os = "watchos",
                         target_os = "freebsd",
                         target_os = "dragonfly",
                         target_os = "openbsd",
